@@ -17,6 +17,8 @@ public class KeyHandler implements KeyListener {
             System.out.println("A");
         }else if(e.getKeyCode() == KeyEvent.VK_D) {
             System.out.println("D");
+        }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
         }
     }
 

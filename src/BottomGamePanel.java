@@ -2,17 +2,18 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel implements Runnable{
-    static final int WIDTH = 600;
-    static final int HEIGHT = 900;
+public class BottomGamePanel extends JPanel implements Runnable{
+
+    static final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    static final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();;
     Thread gameThread;
     final int FPS = 60;
     KeyHandler keyHandler = new KeyHandler();
 
-    public GamePanel() {
+    public BottomGamePanel() {
 
-        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        this.setBackground(Color.white);
+        this.setPreferredSize(new Dimension((int)WIDTH, ((int)HEIGHT*20)/100));
+        this.setBackground(Color.BLACK);
         this.setLayout(null);
 
         this.addKeyListener(keyHandler);
