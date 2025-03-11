@@ -32,6 +32,23 @@ public class KeyHandler implements KeyListener {
         }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(0);
         }
+        if(MiddleGamePanel.actualWindow == 2){
+            if(e.getKeyCode() == KeyEvent.VK_Q){
+
+            }else if(e.getKeyCode() == KeyEvent.VK_W){
+
+            }else if(e.getKeyCode() == KeyEvent.VK_E){
+
+            }else if(e.getKeyCode() == KeyEvent.VK_A){
+
+            }else if(e.getKeyCode() == KeyEvent.VK_S){
+
+            }else if(e.getKeyCode() == KeyEvent.VK_D){
+
+            }else if(e.getKeyCode() == KeyEvent.VK_F){
+
+            }
+        }
     }
 
     @Override

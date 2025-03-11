@@ -6,9 +6,17 @@ public class TopGamePanel extends JPanel implements Runnable{
 
     static final double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     static final double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();;
+
     int metalValue = 0;
     int cristalValue = 0;
     int deuterValue = 0;
+
+    int maxMetalValue = 1000;
+    int maxCristalValue = 1000;
+    int maxDeuterValue = 1000;
+
+
+    int energyValue = 5000;
 
     Thread gameThread;
     final int FPS = 60;
@@ -61,9 +69,15 @@ public class TopGamePanel extends JPanel implements Runnable{
         }
     }
     public void update() {
-        metalValue++;
-        cristalValue++;
-        deuterValue++;
+        if(metalValue<maxMetalValue){
+            metalValue++;
+        }
+        if(cristalValue<maxCristalValue){
+            cristalValue++;
+        }
+        if(deuterValue<maxDeuterValue){
+            deuterValue++;
+        }
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -78,10 +92,12 @@ public class TopGamePanel extends JPanel implements Runnable{
 
         g2.setFont(new Font("Tahoma",Font.ITALIC,14));
         g2.drawString("Metal:",xBoxStarValue+(xBoxWidth*10)/100,yBoxStarValue+(yBoxHeight*55)/100);
-        g2.drawString(""+metalValue,xBoxStarValue+(xBoxWidth*10)/100,yBoxStarValue+(yBoxHeight*85)/100);
-        g2.drawString("Kryształ:",xBoxStarValue+(xBoxWidth*40)/100,yBoxStarValue+(yBoxHeight*55)/100);
-        g2.drawString(""+cristalValue,xBoxStarValue+(xBoxWidth*45)/100,yBoxStarValue+(yBoxHeight*85)/100);
-        g2.drawString("Deuter:",xBoxStarValue+(xBoxWidth*80)/100,yBoxStarValue+(yBoxHeight*55)/100);
-        g2.drawString(""+deuterValue,xBoxStarValue+(xBoxWidth*85)/100,yBoxStarValue+(yBoxHeight*85)/100);
+        g2.drawString(metalValue + " / " + maxMetalValue,xBoxStarValue+(xBoxWidth*10)/100,yBoxStarValue+(yBoxHeight*85)/100);
+        g2.drawString("Kryształ:",xBoxStarValue+(xBoxWidth*30)/100,yBoxStarValue+(yBoxHeight*55)/100);
+        g2.drawString(cristalValue + " / " + maxCristalValue,xBoxStarValue+(xBoxWidth*30)/100,yBoxStarValue+(yBoxHeight*85)/100);
+        g2.drawString("Deuter:",xBoxStarValue+(xBoxWidth*50)/100,yBoxStarValue+(yBoxHeight*55)/100);
+        g2.drawString(deuterValue + " / " + maxDeuterValue,xBoxStarValue+(xBoxWidth*50)/100,yBoxStarValue+(yBoxHeight*85)/100);
+        g2.drawString("Energia:",xBoxStarValue+(xBoxWidth*80)/100,yBoxStarValue+(yBoxHeight*55)/100);
+        g2.drawString(""+energyValue,xBoxStarValue+(xBoxWidth*80)/100,yBoxStarValue+(yBoxHeight*85)/100);
     }
 }
