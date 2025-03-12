@@ -46,7 +46,19 @@ public class KeyHandler implements KeyListener {
             }else if(e.getKeyCode() == KeyEvent.VK_D){
 
             }else if(e.getKeyCode() == KeyEvent.VK_F){
-
+                if(MiddleGamePanel.sourcePage==0){
+                    MiddleGamePanel.sourcePage = 1;
+                }else if(MiddleGamePanel.sourcePage == 1){
+                    MiddleGamePanel.sourcePage = 0;
+                }
+            }
+        }if(MiddleGamePanel.actualWindow == 3){
+            if(e.getKeyCode() == KeyEvent.VK_F){
+                if(MiddleGamePanel.sourcePage==0){
+                    MiddleGamePanel.sourcePage = 1;
+                }else if(MiddleGamePanel.sourcePage == 1){
+                    MiddleGamePanel.sourcePage = 0;
+                }
             }
         }
     }

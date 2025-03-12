@@ -18,16 +18,31 @@ public class MiddleGamePanel extends JPanel implements Runnable{
     int currentCristalMineLevel = 0;
     int currentDeuterMineLevel = 0;
 
+    int currentSolarPowerPlant = 0;
+    int currentDeuteriumPowerPlant = 0;
+    int currentSolarSatellite = 0;
+
+    int currentWaterPowerPlant = 0;
+    int currentWindPowerPlant = 0;
+    int currentAtomicPowerPlant = 0;
+
     int xMainWindowValue = ((int)WIDTH*20)/100;
     int yMainWindowValue = ((int)HEIGHT)/100;
     int widthMainWindow = ((int)WIDTH*60)/100;
     int heightMainWindow = ((int)HEIGHT*58)/100;
+
+    int firstRowYValue = ((int) HEIGHT)/100+50;
+    int secondRowYValue = ((int) HEIGHT)/100+280;
+    int widthOfFistRect = widthMainWindow/4;
+    int heightOfFistRect = (heightMainWindow-100)/2;
 
     String diameter = "12.800km (163 pola uprawne)";
     String temperature = "-18 / 34 Stopni Celsjusza";
     String position = "[1:60:4]";
     int points = 0;
     int honorPoints = 0;
+
+    static int sourcePage = 0;
 
     public static int actualWindow = 2;
 
@@ -152,14 +167,21 @@ public class MiddleGamePanel extends JPanel implements Runnable{
 
     }
     public void drawWindow2(Graphics2D g2){
+        String[] buildingNames = {"Q - Kopania Metalu","W - Kopania Kryształu","E - Kopania Deuteru","A - Magazyn Metalu","S - Magazyn Kryształu",
+                "D - Magazyn Deuteru","Q - Elektrownia słoneczna","W - Elektrownia deuterowa","W - Satelita słoneczny",
+                "A - Elektrownia Wodna","S - Elektrownia Powietrzna","D - Elektrownia Atomowa"};
         g2.setFont(new Font("Tahoma",Font.BOLD,24));
         g2.drawRoundRect(xMainWindowValue+10,yMainWindowValue+5,170,35,20,20);
         g2.drawString("SUROWCE",xMainWindowValue+20,yMainWindowValue+30);
 
-        int firstRowYValue = ((int) HEIGHT)/100+50;
-        int secondRowYValue = ((int) HEIGHT)/100+280;
-        int widthOfFistRect = widthMainWindow/4;
-        int heightOfFistRect = (heightMainWindow-100)/2;
+        int firstRectXStringValue = ((int) WIDTH*22)/100;
+        int firstRectYStringValue = (((int) HEIGHT)/100);
+
+        int secondRectXStringValue = ((int) WIDTH*43)/100;
+
+        int thirdRectXStringValue = ((int) WIDTH*64)/100;
+
+        int[] fixedYValueForStrings = {80,110,140,170,200,230};
 
         g2.drawRoundRect(((int) WIDTH*21)/100,firstRowYValue,widthOfFistRect,heightOfFistRect,20,20);
         g2.drawRoundRect(((int) WIDTH*42)/100,firstRowYValue,widthOfFistRect,heightOfFistRect,20,20);
@@ -167,29 +189,221 @@ public class MiddleGamePanel extends JPanel implements Runnable{
         g2.drawRoundRect(((int) WIDTH*21)/100,secondRowYValue,widthOfFistRect,heightOfFistRect,20,20);
         g2.drawRoundRect(((int) WIDTH*42)/100,secondRowYValue,widthOfFistRect,heightOfFistRect,20,20);
         g2.drawRoundRect(((int) WIDTH*63)/100,secondRowYValue,widthOfFistRect,heightOfFistRect,20,20);
+        g2.setFont(new Font("Tahoma",Font.BOLD,14));
 
-        g2.setFont(new Font("Tahoma",Font.BOLD,18));
-        g2.drawString("Q - Kopania Metalu",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+80);
-        g2.drawString("Aktualny level - "+currentMetalLevel,((int) WIDTH*22)/100, (((int) HEIGHT)/100)+180);
-        g2.drawString("W - Kopania Kryształu",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+80);
-        g2.drawString("Aktualny level - "+currentCristalLevel,((int) WIDTH*43)/100, (((int) HEIGHT)/100)+180);
-        g2.drawString("W - Kopania Deuteru",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+80);
-        g2.drawString("Aktualny level - "+currentDeuterLevel,((int) WIDTH*64)/100, (((int) HEIGHT)/100)+180);
+        if(sourcePage == 0){
+            g2.drawString(buildingNames[0],firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[0]);
+            g2.drawString("Aktualny level - "+currentMetalLevel,firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[1]);
+            g2.drawString("Aktualny koszt:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[2]);
+            g2.drawString("Metal:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[3]);
+            g2.drawString("Kryształ:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[4]);
+            g2.drawString("Deuter:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[5]);
 
-        g2.drawString("A - Magazyn Metalu",((int) WIDTH*22)/100, ((int) HEIGHT)/100+310);
-        g2.drawString("Aktualny level - "+currentMetalMineLevel,((int) WIDTH*22)/100, (((int) HEIGHT)/100)+410);
-        g2.drawString("S - Magazyn Kryształu",((int) WIDTH*43)/100, ((int) HEIGHT)/100+310);
-        g2.drawString("Aktualny level - "+currentCristalMineLevel,((int) WIDTH*43)/100, (((int) HEIGHT)/100)+410);
-        g2.drawString("D - Magazyn Deuteru",((int) WIDTH*64)/100, ((int) HEIGHT)/100+310);
-        g2.drawString("Aktualny level - "+currentDeuterMineLevel,((int) WIDTH*64)/100, (((int) HEIGHT)/100)+410);
+            g2.drawString(buildingNames[1],secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[0]);
+            g2.drawString("Aktualny level - "+currentCristalLevel,secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[1]);
+            g2.drawString("Aktualny koszt:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[2]);
+            g2.drawString("Metal:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[3]);
+            g2.drawString("Kryształ:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[4]);
+            g2.drawString("Deuter:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[5]);
 
+            g2.drawString(buildingNames[2],thirdRectXStringValue, (((int) HEIGHT)/100)+80);
+            g2.drawString("Aktualny level - "+currentDeuterLevel,thirdRectXStringValue, (((int) HEIGHT)/100)+110);
+            g2.drawString("Aktualny koszt:",thirdRectXStringValue, (((int) HEIGHT)/100)+140);
+            g2.drawString("Metal:",thirdRectXStringValue, (((int) HEIGHT)/100)+170);
+            g2.drawString("Kryształ:",thirdRectXStringValue, (((int) HEIGHT)/100)+200);
+            g2.drawString("Deuter:",thirdRectXStringValue, (((int) HEIGHT)/100)+230);
+
+            //---------------------------
+
+            g2.drawString(buildingNames[3],((int) WIDTH*22)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentMetalMineLevel,((int) WIDTH*22)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+460);
+
+            g2.drawString(buildingNames[4],((int) WIDTH*43)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentCristalMineLevel,((int) WIDTH*43)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+460);
+
+            g2.drawString(buildingNames[5],((int) WIDTH*64)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentDeuterMineLevel,((int) WIDTH*64)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+460);
+
+        }else if(sourcePage == 1){
+            g2.drawString(buildingNames[6],((int) WIDTH*22)/100, (((int) HEIGHT)/100)+80);
+            g2.drawString("Aktualny level - "+currentSolarPowerPlant,((int) WIDTH*22)/100, (((int) HEIGHT)/100)+110);
+            g2.drawString("Aktualny koszt:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[2]);
+            g2.drawString("Metal:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[3]);
+            g2.drawString("Kryształ:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[4]);
+            g2.drawString("Deuter:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[5]);
+
+            g2.drawString(buildingNames[7],((int) WIDTH*43)/100, (((int) HEIGHT)/100)+80);
+            g2.drawString("Aktualny level - "+currentDeuteriumPowerPlant,((int) WIDTH*43)/100, (((int) HEIGHT)/100)+110);
+            g2.drawString("Aktualny koszt:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[2]);
+            g2.drawString("Metal:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[3]);
+            g2.drawString("Kryształ:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[4]);
+            g2.drawString("Deuter:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[5]);
+
+            g2.drawString(buildingNames[8],((int) WIDTH*64)/100, (((int) HEIGHT)/100)+80);
+            g2.drawString("Aktualny level - "+currentSolarSatellite,((int) WIDTH*64)/100, (((int) HEIGHT)/100)+110);
+            g2.drawString("Aktualny koszt:",thirdRectXStringValue, (((int) HEIGHT)/100)+140);
+            g2.drawString("Metal:",thirdRectXStringValue, (((int) HEIGHT)/100)+170);
+            g2.drawString("Kryształ:",thirdRectXStringValue, (((int) HEIGHT)/100)+200);
+            g2.drawString("Deuter:",thirdRectXStringValue, (((int) HEIGHT)/100)+230);
+
+            //------------------------------
+
+            g2.drawString(buildingNames[9],((int) WIDTH*22)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentWaterPowerPlant,((int) WIDTH*22)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+460);
+
+            g2.drawString(buildingNames[10],((int) WIDTH*43)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentWindPowerPlant,((int) WIDTH*43)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+460);
+
+            g2.drawString(buildingNames[11],((int) WIDTH*64)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+ currentAtomicPowerPlant,((int) WIDTH*64)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+460);
+
+        }
         g2.drawRoundRect(widthMainWindow,yMainWindowValue+5,210,35,20,20);
         g2.drawString("F - Następna strona",widthMainWindow+10,yMainWindowValue+30);
     }
     public void drawWindow3(Graphics2D g2){
+        String[] buildingNames = {"Q - Fabryka robotów","W - Stocznia","E - Laboratorium","A - Depozyt sojuszniczy","S - Silos rakietowy",
+                "D - Fabryka nanitów","Q - Teraformer","W - ","W - ",
+                "A - ","S - ","D - "};
+
+        int firstRectXStringValue = ((int) WIDTH*22)/100;
+        int firstRectYStringValue = (((int) HEIGHT)/100);
+
+        int secondRectXStringValue = ((int) WIDTH*43)/100;
+
+        int thirdRectXStringValue = ((int) WIDTH*64)/100;
+
+        int[] fixedYValueForStrings = {80,110,140,170,200,230};
+
         g2.setFont(new Font("Tahoma",Font.BOLD,24));
         g2.drawRoundRect(xMainWindowValue+10,yMainWindowValue+5,170,35,20,20);
         g2.drawString("STACJA",xMainWindowValue+20,yMainWindowValue+30);
+
+        g2.drawRoundRect(((int) WIDTH*21)/100,firstRowYValue,widthOfFistRect,heightOfFistRect,20,20);
+        g2.drawRoundRect(((int) WIDTH*42)/100,firstRowYValue,widthOfFistRect,heightOfFistRect,20,20);
+        g2.drawRoundRect(((int) WIDTH*63)/100,firstRowYValue,widthOfFistRect,heightOfFistRect,20,20);
+        g2.drawRoundRect(((int) WIDTH*21)/100,secondRowYValue,widthOfFistRect,heightOfFistRect,20,20);
+        g2.drawRoundRect(((int) WIDTH*42)/100,secondRowYValue,widthOfFistRect,heightOfFistRect,20,20);
+        g2.drawRoundRect(((int) WIDTH*63)/100,secondRowYValue,widthOfFistRect,heightOfFistRect,20,20);
+        g2.setFont(new Font("Tahoma",Font.BOLD,14));
+
+        if(sourcePage == 0){
+            g2.drawString(buildingNames[0],firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[0]);
+            g2.drawString("Aktualny level - ",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[1]);
+            g2.drawString("Aktualny koszt:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[2]);
+            g2.drawString("Metal:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[3]);
+            g2.drawString("Kryształ:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[4]);
+            g2.drawString("Deuter:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[5]);
+
+            g2.drawString(buildingNames[1],secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[0]);
+            g2.drawString("Aktualny level - ",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[1]);
+            g2.drawString("Aktualny koszt:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[2]);
+            g2.drawString("Metal:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[3]);
+            g2.drawString("Kryształ:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[4]);
+            g2.drawString("Deuter:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[5]);
+
+            g2.drawString(buildingNames[2],thirdRectXStringValue, (((int) HEIGHT)/100)+80);
+            g2.drawString("Aktualny level - "+currentDeuterLevel,thirdRectXStringValue, (((int) HEIGHT)/100)+110);
+            g2.drawString("Aktualny koszt:",thirdRectXStringValue, (((int) HEIGHT)/100)+140);
+            g2.drawString("Metal:",thirdRectXStringValue, (((int) HEIGHT)/100)+170);
+            g2.drawString("Kryształ:",thirdRectXStringValue, (((int) HEIGHT)/100)+200);
+            g2.drawString("Deuter:",thirdRectXStringValue, (((int) HEIGHT)/100)+230);
+
+            //---------------------------
+
+            g2.drawString(buildingNames[3],((int) WIDTH*22)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentMetalMineLevel,((int) WIDTH*22)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+460);
+
+            g2.drawString(buildingNames[4],((int) WIDTH*43)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentCristalMineLevel,((int) WIDTH*43)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+460);
+
+            g2.drawString(buildingNames[5],((int) WIDTH*64)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentDeuterMineLevel,((int) WIDTH*64)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+460);
+
+        }else if(sourcePage == 1){
+            g2.drawString(buildingNames[6],((int) WIDTH*22)/100, (((int) HEIGHT)/100)+80);
+            g2.drawString("Aktualny level - "+currentSolarPowerPlant,((int) WIDTH*22)/100, (((int) HEIGHT)/100)+110);
+            g2.drawString("Aktualny koszt:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[2]);
+            g2.drawString("Metal:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[3]);
+            g2.drawString("Kryształ:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[4]);
+            g2.drawString("Deuter:",firstRectXStringValue, firstRectYStringValue+fixedYValueForStrings[5]);
+
+            g2.drawString(buildingNames[7],((int) WIDTH*43)/100, (((int) HEIGHT)/100)+80);
+            g2.drawString("Aktualny level - "+currentDeuteriumPowerPlant,((int) WIDTH*43)/100, (((int) HEIGHT)/100)+110);
+            g2.drawString("Aktualny koszt:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[2]);
+            g2.drawString("Metal:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[3]);
+            g2.drawString("Kryształ:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[4]);
+            g2.drawString("Deuter:",secondRectXStringValue, firstRectYStringValue+fixedYValueForStrings[5]);
+
+            g2.drawString(buildingNames[8],((int) WIDTH*64)/100, (((int) HEIGHT)/100)+80);
+            g2.drawString("Aktualny level - "+currentSolarSatellite,((int) WIDTH*64)/100, (((int) HEIGHT)/100)+110);
+            g2.drawString("Aktualny koszt:",thirdRectXStringValue, (((int) HEIGHT)/100)+140);
+            g2.drawString("Metal:",thirdRectXStringValue, (((int) HEIGHT)/100)+170);
+            g2.drawString("Kryształ:",thirdRectXStringValue, (((int) HEIGHT)/100)+200);
+            g2.drawString("Deuter:",thirdRectXStringValue, (((int) HEIGHT)/100)+230);
+
+            //------------------------------
+
+            g2.drawString(buildingNames[9],((int) WIDTH*22)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentWaterPowerPlant,((int) WIDTH*22)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*22)/100, (((int) HEIGHT)/100)+460);
+
+            g2.drawString(buildingNames[10],((int) WIDTH*43)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+currentWindPowerPlant,((int) WIDTH*43)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*43)/100, (((int) HEIGHT)/100)+460);
+
+            g2.drawString(buildingNames[11],((int) WIDTH*64)/100, ((int) HEIGHT)/100+310);
+            g2.drawString("Aktualny level - "+ currentAtomicPowerPlant,((int) WIDTH*64)/100, (((int) HEIGHT)/100)+340);
+            g2.drawString("Aktualny koszt:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+370);
+            g2.drawString("Metal:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+400);
+            g2.drawString("Kryształ:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+430);
+            g2.drawString("Deuter:",((int) WIDTH*64)/100, (((int) HEIGHT)/100)+460);
+
+        }
+        g2.drawRoundRect(widthMainWindow,yMainWindowValue+5,210,35,20,20);
+        g2.drawString("F - Następna strona",widthMainWindow+10,yMainWindowValue+30);
     }
     public void drawWindow4(Graphics2D g2){
         g2.setFont(new Font("Tahoma",Font.BOLD,24));
